@@ -5,6 +5,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import AppSidebar from "@/components/AppSidebar";
 import Dashboard from "@/components/Dashboard";
@@ -331,12 +332,16 @@ export default function App() {
                     <span className="text-sm text-muted-foreground">AI Exam Preparation Platform</span>
                   </div>
                 </header>
-                <main className="flex-1 overflow-hidden p-6">
-                  <Router 
-                    user={mockUser} 
-                    onNewExam={handleNewExam}
-                    onShowExam={handleShowProctoredExam}
-                  />
+                <main className="flex-1 overflow-hidden">
+                  <ScrollArea className="h-full">
+                    <div className="p-6">
+                      <Router 
+                        user={mockUser} 
+                        onNewExam={handleNewExam}
+                        onShowExam={handleShowProctoredExam}
+                      />
+                    </div>
+                  </ScrollArea>
                 </main>
               </div>
             </div>
