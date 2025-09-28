@@ -1,0 +1,71 @@
+Build a production-ready, modular web application called “AI for Exam Preparation with Moderator”.
+
+⚙️ Tech stack:
+– Frontend: React + Next.js + TypeScript + Tailwind CSS.
+– Backend: Node.js + Express (TypeScript).
+– Auth: Firebase Authentication (email/password + Google sign-in).
+– DB: MongoDB Atlas.
+– Cloud storage: Firebase Storage or S3 for media.
+– WebRTC + Socket.IO for live video (group study + proctored exams).
+– Stripe for payments.
+– Integrate my existing project “Peaple” (human tutor section) directly for live group discussions and human tutor matching.
+
+🎯 Minimum Feature Set (MVP):
+1. **Authentication**: Use Firebase Auth. After login, create a MongoDB user doc mapping firebaseUid → user details.
+2. **Dashboard**: Student profile (name, gender, exams prepared, reviews), topic search, quick stats, “New Exam Preparation” CTA, and Active Groups list.
+3. **New Exam Wizard**: Collect exam name, total hours, single/group mode, AI vs Human tutor. If group: generate an 8-char group code, create MongoDB group doc, allow join by code.
+4. **AI Tutor (text chat)**: Agentic LLM explains topics in three tiers (summary/core/deep dive), returns a 5-question quiz, generates Mermaid flow diagrams. Save all prompt/responses as “Materials” in DB.
+5. **Timetable upload**: Upload image → OCR → parse schedule → generate suggested study schedule.
+6. **Voice recorder + STT**: Record audio, transcribe (Whisper/Deepgram), save transcript. Use transcript to adapt AI tutor responses.
+7. **Periodic micro-breaks**: Every 15 minutes show fun fact / mini quiz / puzzle.
+8. **Quizzes & gating**: After completing a topic, auto-grade quiz and store score.
+9. **Proctored exam**: Full-screen UI with WebRTC camera stream, timer, optional recording, client-side detection (multiple faces/no face). Save proctoring record and flags to MongoDB; moderator queue.
+10. **Group study + Human tutor integration**: 
+    – For group mode, integrate my “Peaple” project directly. 
+    – Use Peaple API or embed UI for random video + chat matching and human tutor sessions.
+    – Track credit usage (Peas) and charge via Stripe after free limit.
+    – If a group member leaves, their questions, AI answers, and shared materials should persist in a MongoDB file for that group.
+11. **Moderator dashboard**: Flagged proctoring sessions, watch recordings, ban/suspend users, manage tutors, view reports.
+12. **Security**: Consent UI for recordings, encrypt recordings at rest, server-side validation & rate limiting, user deletion/retention policies.
+
+🗂️ Deliverables:
+– Clean project skeleton with frontend & backend directories, TypeScript, ESLint, Prettier.
+– Working Firebase Auth integration with example login/signup pages.
+– MongoDB schemas & sample seed data for users, groups, exam plans, materials, proctoring records.
+– Example REST API endpoints for key operations (create exam, join group, upload material, start proctor).
+– Socket.IO signaling server for WebRTC with example frontend to create/join a room.
+– Simple AI integration forwarding chat + context to an LLM (mock or real API key) and saving prompt/response to DB.
+– OCR pipeline for timetable images (Tesseract fallback) and a schedule generator endpoint.
+– Voice recorder component with upload & STT transcription.
+– Mermaid rendering for flow diagrams from LLM output.
+– Proctoring detection (multiple faces/no face) client-side with `face-api.js` and upload flags to DB.
+– Moderator UI for reviewing flags & recordings.
+– Payment integration (Stripe) for Peaple credits with free/pro/enterprise plans and credits deduction.
+
+📡 APIs & Data Contracts:
+– Provide a list of REST endpoints (method, path, body, response) for all major features.
+– Provide WebSocket events for signaling and group chat.
+
+✅ Testing & Acceptance:
+– Unit tests for backend endpoints.
+– Basic E2E test: user can sign up → create a single exam plan → generate a schedule from a sample timetable image → start an AI chat session → record audio & transcribe.
+
+⚠️ Non-functional:
+– Use environment variables for all keys.
+– Provide `.env.example` with required keys.
+– Provide README with setup steps, local dev instructions, and deployment hints (Vercel/Render/Heroku + MongoDB Atlas + Firebase).
+– Include a short privacy checklist with recommended retention defaults (proctoring recordings 90 days unless deletion requested).
+
+💡 Extra:
+– Provide example LLM prompt templates (explain topic, generate quiz, make Mermaid diagram, generate SSML for TTS).
+– Provide a simple PoC to generate a video: JSON storyboard frames (text + image prompts), and a backend worker example that creates an mp4 using ffmpeg (assemble slides + TTS).
+
+Output:
+– The full scaffold (frontend + backend directories).
+– TypeScript code for key files.
+– REST API contract table and WebSocket events.
+– `.env.example`.
+– One end-to-end demo script for QA.
+
+Security: Avoid hard-coding any real API keys; use environment variables.
+
